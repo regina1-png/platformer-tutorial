@@ -1,0 +1,34 @@
+Feature Added: Sprint Mechanic (Shift Key)
+
+Description of Changes:
+I extended the original platformer tutorial by implementing a custom sprint mechanic for the player character. Instead of keeping the character's movement speed constant, the player can dynamically sprint by holding down the Shift key.
+
+Code Added :
+
+var walk_speed = 130.0
+var sprint_speed = 260.0
+var current_speed = walk_speed
+
+# Inside _physics_process():
+var direction := 0.0
+if Input.is_key_pressed(KEY_LEFT) or Input.is_key_pressed(KEY_A):
+    direction -= 1.0
+if Input.is_key_pressed(KEY_RIGHT) or Input.is_key_pressed(KEY_D):
+    direction += 1.0
+
+if Input.is_key_pressed(KEY_SHIFT):
+    current_speed = sprint_speed
+else:
+    current_speed = walk_speed
+
+if direction != 0:
+    velocity.x = direction * current_speed
+
+
+1. Variables and State: Added distinct values for walking speed (130.0) and sprinting speed (260.0), alongside a dynamic 'current_speed' variable that dictates the player's active velocity multiplier.
+2. Input Handling: Implemented explicit key detection for horizontal inputs (supporting both arrow keys and WASD).
+3. Sprint Logic: During every physics step (_physics_process), the game checks if the Shift key is actively held using Input.is_key_pressed(KEY_SHIFT). If pressed, 'current_speed' is doubled to 260.0; otherwise, it defaults to normal walking speed.
+4. Movement Execution: The horizontal velocity is calculated using the actively evaluated speed, allowing the knight to sprint across gaps and clear obstacles faster.
+
+Note on Workflow and AI Use:
+I used an AI assistant as a learning tutor during this project to help troubleshoot syntax errors and explain how specific Godot functions and logic operate. While game development and programming are quite challenging for me, I built the project and followed every tutorial step myself, actively working to understand the underlying logic and reasoning behind each line of code.
